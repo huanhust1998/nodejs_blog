@@ -1,6 +1,6 @@
 class SearchController {
   showForm(req, res) {
-    res.render("search");
+               res.render("search");
   }
 }
 
