@@ -1,5 +1,8 @@
 const CourseModel = require("../models/Course");
-const { multipleMongooseToObject } = require("../../util/mongoose");
+const {
+  multipleMongooseToObject,
+  mongooseToObject,
+} = require("../../util/mongoose");
 class CourseController {
   // [Get] /news
   index(req, res, next) {
@@ -11,9 +14,13 @@ class CourseController {
       .catch(next);
   }
 
-  // [Get] /news/:slug
-  show(req, res) {
-    res.send("New Detail");
+  // [Get] /course/:slug
+  show(req, res, next) {
+    CourseModel.findOne({ slug: req.params.slug })
+      .then((course) => {
+        res.render("courses/show", { course: mongooseToObject(course) });
+      })
+      .catch(next);
   }
 }
 
